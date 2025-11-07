@@ -40,3 +40,14 @@ As we have mentioned, modern chips possess multiple circuits that specialize in 
 ### Multiple threads of execution
 
 Finally, modern architectures usually feature multiple processing units that can execute operations independently of one another. This is the main differentiator of GPUs which possess thousands of cores that can all execute operations in parallel on different data addresses. This model comes with additional complexities such as the need to synchronize data across cores safely and efficiently.
+
+Coming back to the original model, we now execute the model multiple times in parallel.
+
+## Comparison of On-Chip Parallelism
+
+| Parallelism Type | Core Concept | ⚙️ Hardware Example | 💻 Software Abstraction | 👤 Who Implements This? |
+| :--- | :--- | :--- | :--- | :--- |
+| **IO parallelism** | Hiding memory latency by performing computation while waiting for data to be fetched. | GPU warp schedulers swapping threads stalled on memory reads; hardware prefetchers. | Optimized kernels (e.g., in cuDNN, XLA). | **Chip Hardware** (schedulers) & **Compiler** (instruction scheduling). |
+| **SIMD** <br/> (Single Instruction, Multiple Data) | One instruction operating on many data elements (a vector) at once. | GPU Tensor Cores (for matrices), TPU MXUs, CPU AVX registers. | Vectorized code (e.g., `a + b` on tensors), `torch.matmul`. | **Compiler / Library** (e.g., cuDNN, XLA). The programmer *enables* this by using high-level vector/matrix ops. |
+| **Instruction-Level Parallelism** <br/> (Using Multiple ALUs) | Using different, specialized execution units (ALUs) within a core at the same time. | A TPU pipelining work from its MXU (matrix) to its VPU (vector). | **Kernel Fusion** (e.g., `matmul + relu` in one operation). | **Compiler** (e.g., `jax.jit`, XLA). The chip hardware makes it possible. |
+| **Multithreading / Multicore** <br/> (MIMD / SIMT) | Multiple processing units (cores) executing instructions independently. | Multi-core CPU (MIMD), thousands of CUDA Cores on a GPU (SIMT). | **Data Parallelism** (splitting a batch over cores) or Model Parallelism. | **Programmer & Library** (e.g., CUDA, which manages threads for kernels). |
