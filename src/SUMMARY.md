@@ -7,3 +7,4 @@
   - [Practical Example](./estimation/example.md)
   - [Roofline Model](./estimation/roofline.md)
   - [Interview Questions](./estimation/questions.md)
+- [Distributed Computations](./distributed/distributed.md)
