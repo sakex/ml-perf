@@ -4,7 +4,7 @@ Machine Learning workloads require more and more computational power as we scale
 
 ## Sequential execution model
 
-[Traditional chips were thought off as having two main blocks](https://en.wikipedia.org/wiki/Von_Neumann_architecture); the memory (RAM) and the Central Processing Unit (CPU.)
+[Traditional chips were thought of as having two main blocks](https://en.wikipedia.org/wiki/Von_Neumann_architecture); the memory (RAM) and the Central Processing Unit (CPU.)
 
 Traditional software is usually written with this implied model:
 
@@ -13,7 +13,7 @@ Traditional software is usually written with this implied model:
 3. Write back the output of those operations to RAM
 4. Repeat for the next instruction
 
-While this model is great and allowed us to write most of the software running the world today; it has long become incoherent with the way chips actually process data. We let the the compilers and the chips themselves rewrite our code to make better use of the actual capabilities of the hardware; mostly through different levels of parallelism and better memory access patterns.
+While this model is great and allowed us to write most of the software running the world today; it has long become incoherent with the way chips actually process data. We let the compilers and the chips themselves rewrite our code to make better use of the actual capabilities of the hardware; mostly through different levels of parallelism and better memory access patterns.
 
 ## The different levels of on-chip parallelism
 
@@ -33,7 +33,7 @@ Most modern chips are capable of executing a single instruction on multiple elem
 
 Coming back to our execution model. Instead of executing one operation at a time on scalars, we instead perform as many operations as we can in parallel within a SIMD unit and also load more data at once since our registers are larger.
 
-### Multiple Arithmetic Logic Units (ALUs)
+### Instruction Level Parallelism
 
 As we have mentioned, modern chips possess multiple circuits that specialize in the handling of different data types and operations. For instance, TPUs have MXUs and VPUs. Some of these circuits can also be used independently. For instance, we could compute a dot product on the MXU, and apply a ReLU activation at the same time on the VPU (more specifically, perform a dot product, write the output to the VPU, do the next dot product at the same time as we apply ReLU on the VPU.)
 
