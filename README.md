@@ -1,2 +1,3 @@
-# cracking-the-perf-interview
-Resources for succeeding at the ML performance engineer interview
+# ML performance
+
+Resources for succeeding as a ML performance engineer.

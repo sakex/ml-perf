@@ -1,4 +1,4 @@
-# Interview Questions
+# Practice Questions
 
 ## Does my runtime make sense?
 
