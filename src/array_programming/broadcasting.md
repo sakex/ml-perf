@@ -88,26 +88,29 @@ qk_masked = qk + mask_2d[None, :, None, :]
 Some algorithms like [Gated Linear Attention](https://arxiv.org/pdf/2312.06635) use a broadcasted multiplication followed by a reduction to implement a matrix multiplication in order to maintain better numerical stability even though the performance is worse and it cannot be done on accelerated tensor cores.
 
 ```python
-import numpy as np
-
-
+# A: (32, 64)
+# B: (64, 16)
 a = np.random.normal(size=(32, 64))
 b = np.random.normal(size=(64, 16))
 
-# First multiply all indices
-a_b = a[:, :, None] * b[None, :, :]
-print(f'{a_b.shape=}')
+# 1. Expand A to (32, 64, 1)
+# 2. Expand B to (1, 64, 16)
+# 3. Broadcast Multiply -> Result is (32, 64, 16)
+intermediate = a[:, :, None] * b[None, :, :]
 
-# Then reduce the contracted dimension
-out = a_b.sum(axis=1)
+# 4. Sum over the middle dimension (k=64)
+out = intermediate.sum(axis=1)
+
+print(f'{intermediate.shape=}')
 print(f'{out.shape=}')
 
+# Verify against standard MatMul
 np.testing.assert_almost_equal(out, a @ b)
 ```
 
 *stdout*
 
 ```python
-a_b.shape=(32, 64, 16)
+intermediate.shape=(32, 64, 16)
 out.shape=(32, 16)
 ```
