@@ -1,7 +1,9 @@
 # Summary
 
 - [Introduction](./introduction.md)
-- [On-Chip Parallelism (theory)](./on_chip_parallelism.md)
+- [Array Programming Fundamentals](./array_programming/intro.md)
+  - [What is an Array?](./array_programming/what_is_an_array.md)
+- [On-Chip Parallelism](./on_chip_parallelism.md)
 - [Estimating Performance](./estimation/estimation.md)
   - [How to Compute It?](./estimation/compute.md)
   - [Practical Example](./estimation/example.md)
