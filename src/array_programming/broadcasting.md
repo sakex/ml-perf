@@ -77,9 +77,9 @@ indices = np.arange(sequence_length)
 # Shape (sequence_length, sequence_length)
 mask_2d = indices[:, None] >= indices[None, :]
 # Replace the false indices with -infinity so they become 0 in the softmax
-mask_2d = np.where(mask_2d, 1.0, -np.inf)
+mask_2d = np.where(mask_2d, 0.0, -np.inf)
 # Apply 2D mask against 4D array
-qk_masked = qk * mask_2d[None, :, None, :]
+qk_masked = qk + mask_2d[None, :, None, :]
 # scores = softmax(qk_masked)
 ```
 
