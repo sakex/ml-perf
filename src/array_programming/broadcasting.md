@@ -108,19 +108,6 @@ np.testing.assert_almost_equal(out, a @ b)
 *stdout*
 
 ```python
-import numpy as np
-
-
-a = np.random.normal(size=(32, 64))
-b = np.random.normal(size=(64, 16))
-
-# First multiply all indices
-a_b = a[:, :, None] * b[None, :, :]
-print(f'{a_b.shape=}')
-
-# Then reduce the contracted dimension
-out = a_b.sum(axis=1)
-print(f'{out.shape=}')
-
-np.testing.assert_almost_equal(out, a @ b)
+a_b.shape=(32, 64, 16)
+out.shape=(32, 16)
 ```
