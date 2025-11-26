@@ -5,6 +5,8 @@
   - [What is an Array?](./array_programming/what_is_an_array.md)
   - [Basic Operators](./array_programming/operators.md)
   - [Broadcasting](./array_programming/broadcasting.md)
+  - [Slicing](./array_programming/slicing.md)
+  - [Indexing](./array_programming/indexing.md)
 - [On-Chip Parallelism](./on_chip_parallelism.md)
 - [Estimating Performance](./estimation/estimation.md)
   - [How to Compute It?](./estimation/compute.md)
