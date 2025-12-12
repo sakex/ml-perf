@@ -4,6 +4,8 @@ Pipelining is a model parallelism strategy used when a model is too large to fit
 
 We vertically slice the model and assign a group of layers to each device. For example, if we have 4 devices and 16 layers: Device 0 holds layers 0-3, Device 1 holds layers 4-7, and so on.
 
+![image](./pipelining.png)
+
 ## Inference
 
 During inference, Pipeline Parallelism acts like a factory assembly line.
