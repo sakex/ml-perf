@@ -10,7 +10,7 @@ There are multiple ways to implement Tensor Parallelism. The best method will de
 
 A good rule of thumb is that you want to minimize the amount of data being transfered between devices because the interchip connection is much slower than the local memory.
 
-You also have to understand which operations will require synchronization to remain correct. Basically, whenever a sharded axis gets reduced, the output needs to either be all reduced or the input needs to be all gathered beforehand. Other operations do not need to be synchronized.
+You also have to understand which operations will require synchronization to remain correct. Basically, whenever a sharded axis gets reduced, the output needs to either be [All-Reduced](./all_reduce.md) or the input needs to be [All-Gathered](./all_gather.md) beforehand. Other operations do not need to be synchronized.
 
 Let's chain two dot products and evaluate how we can shard:
 
@@ -27,13 +27,13 @@ out = mlp_out + x
   - No collective operations will be needed.
 - Sharding on `d`
   - `d` is only reduced during the first einsum, therefore we only need to synchronize around the first einsum.
-  - If we only shard either the activations or the weights but not both, we can [All Gather](./all_gather.md) the sharded tensor before executing the first einsum.
-  - If we shard both, we can [All Gather](./all_gather.md) both. But more efficiently, we can perform the first einsum with the local data and then [All Reduce](./all_reduce.md) the output.
+  - If we only shard either the activations or the weights but not both, we can [All-Gather](./all_gather.md) the sharded tensor before executing the first einsum.
+  - If we shard both, we can [All-Gather](./all_gather.md) both. But more efficiently, we can perform the first einsum with the local data and then [All-Reduce](./all_reduce.md) the output.
   - The final addition never needs any synchronization because devices share the same indices for both arrays and do not reduce the axis.
 - Sharding on `f`
   - `f` is only reduced during the second einsum.
   - If `w0` is sharded on `f`, the output of the first einsum will also be sharded on `f`.
-  - If both `w0` and `w1` are sharded on `f`, we need to [All Reduce](./all_reduce.md) the output of the second einsum before performing the final addition (or after, the order does not matter.)
-  - If only one of the weights is sharded on `f`, we can [All Gather](./all_gather.md) the sharded tensor.
+  - If both `w0` and `w1` are sharded on `f`, we need to [All-Reduce](./all_reduce.md) the output of the second einsum before performing the final addition (or after, the order does not matter.)
+  - If only one of the weights is sharded on `f`, we can [All-Gather](./all_gather.md) the sharded tensor.
 - Sharding on both `d` and `f`, and even `b`, `t`
   - We can shard on any combination of the axes, the same rules will apply.

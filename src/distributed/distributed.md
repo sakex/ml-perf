@@ -12,4 +12,4 @@ We will end up distributing our computations differently depending on the model'
 
 We typically call "sharding" the act distributing an axis of a model on multiple devices.
 
-There are three Collective Operations typically used to synchronize the state of computations across devices, or to move from one sharding to another; [all gather](./all_gather.md), [all reduce](./all_reduce.md), and [all to all](./all_to_all.md). We will introduce them, then explore how they are used in different scenarios.
+There are three Collective Operations typically used to synchronize the state of computations across devices, or to move from one sharding to another; [All-Gather](./all_gather.md), [All-Reduce](./all_reduce.md), and [All-To-All](./all_to_all.md). We will introduce them, then explore how they are used in different scenarios.
