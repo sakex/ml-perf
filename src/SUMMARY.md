@@ -9,6 +9,7 @@
   - [Indexing](./array_programming/indexing.md)
   - [Reshaping And Transposing](./array_programming/reshape.md)
   - [Einsums](./array_programming/einsums.md)
+- [Backward Pass](./backward_pass.md)
 - [On-Chip Parallelism](./on_chip_parallelism.md)
 - [Estimating Performance](./estimation/estimation.md)
   - [How to Compute It?](./estimation/compute.md)
