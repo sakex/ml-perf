@@ -4,3 +4,11 @@ language = "en"
 multilingual = false
 src = "src"
 title = "ML Performance"
+
+[output.html.playpen]
+editable = true
+copy-js = true
+line-numbers = true  # Optional: adds line numbers for better usability
+
+[output.html]
+mathjax-support = true

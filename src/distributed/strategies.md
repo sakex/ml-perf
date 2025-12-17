@@ -76,7 +76,7 @@ class ShardedEngine(ABC):
 
 ## Unsharded Example
 
-Let's start with an unsharded example on a single device. We will start with a 2 layers model with a `ReLU` activation in between. `relu(x @ w0) @ w1`
+Let's start with an unsharded example on a single device. We will start with a 2 layers model with a `ReLU` activation in between. \\[\text{ReLU}(x W_0) W_1\\]
 
 ```python
 
