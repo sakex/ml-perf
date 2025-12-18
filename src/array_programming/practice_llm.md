@@ -4,7 +4,7 @@ We have now covered `NumPy`'s most important APIs. Let's use them to implement t
 
 Specifically, we are implementing a decoder-only transformer similar to LLAMA. We use [RoPE](https://arxiv.org/abs/2104.09864) for our positional encoding.
 
-A major difference with LLAMA is that we use `post-norm` instead of `pre-norm`. We normalize after the attention mechanism and residual instead of before each blick. We do this for convenience but you will almost never see this in real life.
+A major difference with LLAMA is that we use `post-norm` instead of `pre-norm`. We normalize after the attention mechanism and residual instead of before each block. We do this for convenience but you will almost never see this in real life.
 
 ## Embedding Lookup
 

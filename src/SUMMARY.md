@@ -28,3 +28,8 @@
     - [Fully Sharded Data Parallel (FSDP)](./distributed/fsdp.md)
     - [Tensor Parallelism](./distributed/tp.md)
     - [Practice Questions](./distributed/questions.md)
+- [LLM Optimizations](./optimizations/optimizations.md)
+  - [Quality Neutral](./optimizations/quality_neutral/quality_neutral.md)
+    - [KV Caching](./optimizations/quality_neutral/kv_caching.md)
+    - [Disaggregated Serving](./optimizations/quality_neutral/disagg.md)
+  - [Quality Detrimental](./optimizations/quality_detrimental/quality_detrimental.md)
