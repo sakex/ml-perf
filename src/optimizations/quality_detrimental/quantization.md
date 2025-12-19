@@ -29,7 +29,7 @@ There are different methods of obtaining the weights and scales. A simple and co
 1. Calculate the absolute maximum value for the channel: \\(\alpha = \max(|W|)\\).
 2. Calculate the **Scale** (\\(S\\)): \\(S = \frac{\alpha}{127}\\).
 3. Calculate **Quantized Weights** (\\(W_{quantized}\\)): \\(W_{quantized} = \text{round}(\frac{W}{S})\\)
-4. **Dequantization** (Forward Pass): \\(\text{output} = (x @ W_{quantized}) \times S$\\)
+4. **Dequantization** (Forward Pass): \\(\text{output} = (x @ W_{quantized}) \times S\\)
 
 ## Code Example
 
