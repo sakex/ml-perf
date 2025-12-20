@@ -33,7 +33,7 @@
     - [KV Caching](./optimizations/quality_neutral/kv_caching.md)
     - [Disaggregated Serving](./optimizations/quality_neutral/disagg.md)
     - [Speculative Decoding](./optimizations/quality_neutral/speculative_decoding.md)
+    - [Flash Attention](./optimizations/quality_neutral/flash_attention.md)
   - [Quality Detrimental](./optimizations/quality_detrimental/quality_detrimental.md)
     - [Quantization](./optimizations/quality_detrimental/quantization.md)
-    - [Flash Attention (TODO)](./optimizations/quality_detrimental/flash_attention.md)
 - [Credits](./credits.md)
