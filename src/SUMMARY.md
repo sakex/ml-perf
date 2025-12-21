@@ -10,6 +10,7 @@
   - [Reshaping And Transposing](./array_programming/reshape.md)
   - [Einsums](./array_programming/einsums.md)
   - [Practice: Implementing An LLM's Forward Pass](./array_programming/practice_llm.md)
+- [ML Compilers](./ml_compilers/ml_compilers.md)
 - [Backward Pass](./backward_pass.md)
 - [On-Chip Parallelism](./on_chip_parallelism.md)
 - [Estimating Performance](./estimation/estimation.md)
