@@ -50,7 +50,7 @@ grad_mlp = jax.grad(mlp)
 grad_mlp((x, w_0, w_1))
 ```
 
-This is a classic 2 layers `MLP` with a `ReLU` activation in between. \\[\text{ReLU}(x W_0) W_1\\].
+This is a classic 2 layers `MLP` with a `ReLU` activation in between. \\[\text{ReLU}(x W_0) W_1\\]
 
 - The `Forward Pass` simply executes the code we wrote.
 - The `Backward Pass` takes the output of the `Forward Pass` and executes the backward methods in reverse order by propagating gradients backward.
