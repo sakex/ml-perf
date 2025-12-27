@@ -21,7 +21,7 @@ void* buffer = malloc(size);
 
 To the memory allocator, the shape is irrelevant. It only cares about the total number of bytes. The shape is a logical construct used by the software to:
 
-1. **Compute real memory addresses:** It maps logical coordinates $(x, y)$ to a flat memory offset.
+1. **Compute real memory addresses:** It maps logical coordinates \\((x, y)\\) to a flat memory offset.
 2. **Determine validity:** It prevents accessing memory outside the allocated buffer (bounds checking).
 3. **Define semantics:** It dictates how operations broadcast across dimensions.
 

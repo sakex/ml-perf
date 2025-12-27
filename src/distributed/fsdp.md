@@ -26,7 +26,7 @@ We often refer to the levels of sharding as the **Three Stages of ZeRO**, after 
 | :--- | :--- | :--- | :--- |
 | **ZeRO-1** | **Optimizer States only** | **~4x reduction.** (Optimizer states are typically 75% of training memory). | **Minimal** (Same as DDP). |
 | **ZeRO-2** | **Optimizer + Gradients** | **8x reduction.** | **Minimal.** |
-| **ZeRO-3** | **Opt + Grads + Parameters** | **Linear reduction** ($1/N$). Allows fitting massive models. | **High.** Requires All-Gather before every layer. |
+| **ZeRO-3** | **Opt + Grads + Parameters** | **Linear reduction** (\\(1/N\\)). Allows fitting massive models. | **High.** Requires All-Gather before every layer. |
 
 ## Why is the optimizer state so large?
 

@@ -104,7 +104,7 @@ At this point, our model has no way of knowing in which order the tokens appeare
 
 We use the `split` variant for convenience. A common alternative is the `interleaved` variant.
 
-\\(RoPE\\) encodes position information by rotating pairs of query and key vectors in a 2D plane. For a vector \\(x\\) at position \\(m\\), the rotated vector is computed as: $$\text{RoPE}(x, m) = x \cdot \cos(m\theta) + \text{rotate\_half}(x) \cdot \sin(m\theta)$$
+\\(RoPE\\) encodes position information by rotating pairs of query and key vectors in a 2D plane. For a vector \\(x\\) at position \\(m\\), the rotated vector is computed as: \\[\text{RoPE}(x, m) = x \cdot \cos(m\theta) + \text{rotate\_half}(x) \cdot \sin(m\theta)\\]
 
 Where \\(\text{rotate\_half}\\) swaps the components of pairs and negates the first one: \\[\text{rotate\_half} \begin{pmatrix} x_1 \\\ x_2 \end{pmatrix} = \begin{pmatrix} -x_2 \\\ x_1 \end{pmatrix}\\]
 

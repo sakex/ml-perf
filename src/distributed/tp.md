@@ -13,13 +13,13 @@ The golden rule of TP is: **Internal bandwidth is fast; Inter-chip bandwidth is 
 We achieve this by pairing two specific types of sharding:
 
 1. Column Parallelism (Layer 0 in the code example):
-    - Split the weight matrix $W_0$ along the columns (Hidden Dimension).
-    - Input `X` is replicated.
+    - Split the weight matrix \\(W_0\\) along the columns (Hidden Dimension).
+    - Input \\(X\\) is replicated.
     - Each chip computes a chunk of the output vectors.
-    - **Result:** The output activation `Z` is sharded along the hidden dimension. **No communication needed.**
+    - **Result:** The output activation \\(Z\\) is sharded along the hidden dimension. **No communication needed.**
 2. Row Parallelism (Layer 1 in the code example):
-    - Split the weight matrix `W_1` along the rows (Hidden Dimension).
-    - Input `Z` is already sharded along the hidden dimension (thanks to Layer 0).
+    - Split the weight matrix \\(W_1\\) along the rows (Hidden Dimension).
+    - Input \\(Z\\) is already sharded along the hidden dimension (thanks to Layer 0).
     - Each chip computes a dot product using its local shard.
     - **Result:** Each chip has a partial sum of the final output.
     - **Communication:** We perform one single **All-Reduce** to sum the partial results.
@@ -35,8 +35,8 @@ Let's implement our [initial unsharded model](./strategies.md#unsharded-example)
 We implement the standard Megatron-style TP.
 
 - **World Size (N):** Number of devices.
-- `W_0`: Shape `(Model, Hidden // N)`.
-- `W_1`: Shape `(Hidden // N, Model)`.
+- \\(W_0\\): Shape \\((Model, Hidden // N)\\).
+- \\(W_1\\): Shape \\((Hidden // N, Model)\\).
 
 We assume the input `x` is replicated (identical copies on all devices).
 
