@@ -2,9 +2,9 @@
 
 Resources for succeeding as a ML performance engineer.
 
-## Build and run on WSL
+## Build and run locally
 
-First setup uv:
+First setup uv and install dependencies:
 ```bash
 uv venv
 uv pip install -r requirements.txt jupyter ipykernel
@@ -15,12 +15,12 @@ Then make sure the python scripts work:
 uv run python -m code.distributed.tp
 ```
 
-Then install the python dependencies and launch jupyter:
+Then launch jupyter:
 ```bash
 make run jupyter
 ```
 
-Then build and serve the book locally:
+Then serve the book:
 ```bash
 make serve
 ```
