@@ -145,7 +145,7 @@ We loop over all our batch dimensions, we extract vectors of size `w` that we do
 The `bwh,whd->db` einsum is more interesting because it reduces both `w` and `h`. Concretely, the only difference with the above einsum is that we will revisit the same `d, b` output tile multiple times, so we need to reduce intermediate dot products into their corresponding output indices.
 
 ```python
-...
+import numpy as np
 
 manual_out = np.zeros((d_model, batch))
 
@@ -161,3 +161,162 @@ for b in range(batch):
 einsum_out = np.einsum('bwh,whd->db', images, weights)
 np.testing.assert_almost_equal(manual_out, einsum_out)
 ```
+
+
+## Exercises
+
+Let's practice now some einsum functions!
+
+<div id="thebe-activate"></div>
+
+#### Outer Product
+
+The outer product takes two vectors and produces a matrix, by multiplying every element of the first vector by every element of the second vector.
+
+```python
+import numpy as np
+
+size = 10
+
+a = np.ones(size)
+b = np.ones(size)
+
+res = np.einsum('your_einsum', a, b) # <-- einsum here
+
+desired = np.outer(a, b)
+np.testing.assert_array_equal(res, desired)
+print(f"{res.shape=}")
+```
+
+<details>
+    <summary>Solution</summary>
+
+```
+res = np.einsum('i,j->ij', a, b)
+```
+</details>
+
+#### Dot Product
+
+The dot product is the sum of the products of elements at corresponding indices between two vectors of the same size.
+
+\\[\mathbf{a} \cdot \mathbf{b} = \sum_{i=1}^{n} a_i b_i = a_1 b_1 + a_2 b_2 + \cdots + a_n b_n\\]
+
+```python
+import numpy as np
+
+size = 10
+
+a = np.ones(size)
+b = np.ones(size)
+
+res = np.einsum('your_einsum', a, b) # <-- einsum here
+
+desired = np.dot(a, b)
+np.testing.assert_array_equal(res, desired)
+print(f"{res.shape=}")
+```
+
+<details>
+    <summary>Solution</summary>
+
+```
+res = np.einsum('i,i->', a, b)
+```
+</details>
+
+
+#### Inner Product
+
+The inner product is the same operation as dot-product when performed on two vectors.
+When applied to matrices, we take every row from the first matrix and calculate the dot product against every row of the second matrix. This results in a matrix where each entry `(i, j)` tells us how aligned the `i`-th row of the first matrix is with the `j`-th row of the second.
+
+```python
+import numpy as np
+
+size = 10
+
+a = np.ones((size, 2*size))
+b = np.ones((size, 2*size))
+
+res = np.einsum('your_einsum', a, b) # <-- einsum here
+
+desired = np.inner(a, b)
+np.testing.assert_array_equal(res, desired)
+print(f"{res.shape=}")
+```
+
+<details>
+    <summary>Solution</summary>
+
+```
+res = np.einsum('ik,jk->ij', a, b)
+```
+</details>
+
+
+#### Path Optimizations
+
+Let's implement an einsum between three 2-dimensional tensors.
+
+```python
+import numpy as np
+
+batch = 100
+dim_in = 10
+dim_hidden = 1000
+dim_out = 20
+
+x = np.ones((batch, dim_in))
+w_in = np.ones((dim_in, dim_hidden))
+w_out = np.ones((dim_hidden, dim_out))
+
+res = np.einsum('your_einsum', x, w_in, w_out) # <-- einsum here
+
+desired = x @ w_in @ w_out
+np.testing.assert_array_equal(res, desired)
+print(f"{res.shape=}")
+```
+
+<details>
+    <summary>Solution</summary>
+
+Make sure you use the optimal way to multiply the matrices with `optimize=True`.
+
+```
+res = np.einsum('bi,ih,ho->bo', x, w_in, w_out, optimize=True)
+```
+</details>
+
+
+#### Tensor dot product
+
+Let's implement an einsum between two 3-dimensional tensors.
+We want to contract along the common `dim_model` dimension.
+
+```python
+import numpy as np
+
+batch = 100
+sequence = 10
+dim_model = 1000
+n_heads = 2
+head_dim = dim_model // n_heads
+
+x = np.ones((batch, sequence, dim_model))
+w = np.ones((dim_model, n_heads, head_dim))
+
+res = np.einsum('your_einsum', x, w) # <-- einsum here
+
+desired = (x[:, None, :, :] @ w.transpose(1, 0, 2)).transpose(0, 2, 1, 3)
+np.testing.assert_array_equal(res, desired)
+print(f"{res.shape=}")
+```
+
+<details>
+    <summary>Solution</summary>
+
+```
+res = np.einsum('bsd,dnh->bsnh', x, w)
+```
+</details>
